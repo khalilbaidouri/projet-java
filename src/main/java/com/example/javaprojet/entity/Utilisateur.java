@@ -1,10 +1,9 @@
-package org.example.gestionprojet.entities;
+package com.example.javaprojet.entity;
+import com.example.javaprojet.model.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.gestionprojet.model.RoleType;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.Date;
@@ -27,4 +26,12 @@ public class Utilisateurs {
     private Set<RoleType> roles;
     @OneToMany
     private Collection<Groupe> groupes;
-}
+    @OneToOne
+    private Calendrier calendrier;
+    @OneToOne
+    private Reunion reunion;
+    @OneToMany
+    private Collection<Message> messages ;
+
+    }
+
