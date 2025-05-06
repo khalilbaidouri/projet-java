@@ -1,4 +1,4 @@
 package com.example.javaprojet.entity;
 
-public class Utilisateur {
+public class Admin {
 }
