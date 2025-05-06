@@ -1,0 +1,33 @@
+package com.example.javaprojet.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ListeDiffusion extends Ressource {
+
+    private String description;
+
+    private boolean estSysteme;
+
+    @ManyToOne
+    @JoinColumn(name = "id_projet")
+    private Projet projet;
+
+    @ManyToMany
+    @JoinTable(
+            name = "liste_diffusion_utilisateur",
+            joinColumns = @JoinColumn(name = "liste_id"),
+            inverseJoinColumns = @JoinColumn(name = "utilisateur_id")
+    )
+    private Set<Utilisateur> abonnes = new HashSet<>();
+
+}

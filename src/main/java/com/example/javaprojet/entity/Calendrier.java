@@ -1,8 +1,6 @@
 package com.example.javaprojet.entity;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalleDiscussion {
+public class Calendrier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,26 +19,21 @@ public class SalleDiscussion {
     @Column(nullable = false)
     private String nom;
 
-    private String description;
-
-    private boolean estPublique;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+    private boolean estPartage;
 
     @ManyToOne
-    @JoinColumn(name = "id_projet")
-    private Projet projet;
+    @JoinColumn(name = "id_proprietaire")
+    private Utilisateur proprietaire;
 
-    @OneToMany(mappedBy = "salle", cascade = CascadeType.ALL)
-    private Set<Message> messages = new HashSet<>();
+    @OneToMany(mappedBy = "calendrier", cascade = CascadeType.ALL)
+    private Set<Evenement> evenements = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
-            name = "salle_utilisateur",
-            joinColumns = @JoinColumn(name = "salle_id"),
+            name = "calendrier_utilisateur",
+            joinColumns = @JoinColumn(name = "calendrier_id"),
             inverseJoinColumns = @JoinColumn(name = "utilisateur_id")
     )
-    private Set<Utilisateur> membres = new HashSet<>();
+    private Set<Utilisateur> utilisateursPartages = new HashSet<>();
 
 }

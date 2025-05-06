@@ -12,35 +12,37 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalleDiscussion {
+public class Evenement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nom;
+    private String titre;
 
     private String description;
 
-    private boolean estPublique;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateDebut;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+    private Date dateFin;
+
+    private String lieu;
+
+    private boolean estRecurrent;
 
     @ManyToOne
-    @JoinColumn(name = "id_projet")
-    private Projet projet;
-
-    @OneToMany(mappedBy = "salle", cascade = CascadeType.ALL)
-    private Set<Message> messages = new HashSet<>();
+    @JoinColumn(name = "id_calendrier")
+    private Calendrier calendrier;
 
     @ManyToMany
     @JoinTable(
-            name = "salle_utilisateur",
-            joinColumns = @JoinColumn(name = "salle_id"),
+            name = "evenement_utilisateur",
+            joinColumns = @JoinColumn(name = "evenement_id"),
             inverseJoinColumns = @JoinColumn(name = "utilisateur_id")
     )
-    private Set<Utilisateur> membres = new HashSet<>();
+    private Set<Utilisateur> participants = new HashSet<>();
 
 }
